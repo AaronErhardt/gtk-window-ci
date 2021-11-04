@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+
+on:
+  schedule:
+  - cron: '42 */1 * * *'
+
+jobs:
+  ci-msvc:
+    name: CI with MSVC
+    runs-on: $
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+    - name: Fetch Sources
+      uses: actions/checkout@v2
+      with:
+        repository: 'GNOME/gtk'
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install Python Dependencies
+      run: pip install meson ninja
+    - name: Prepare MSVC
+      uses: bus1/cabuild/action/msdevshell@v1
+      with:
+        architecture: x64
+#    - name: Install Rust
+#      uses: actions-rs/toolchain@v1
+    - name: Prepare Build
+      run: meson setup builddir --prefix=C:/gnome -Dbuild-tests=false -Dmedia-gstreamer=disabled
+    - name: Run Build
+      run: meson install -C builddir
