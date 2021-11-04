@@ -5,7 +5,7 @@ name: CI
 
 on:
   schedule:
-  - cron: '42 */1 * * *'
+  - cron: '42 */12 * * *'
 
 jobs:
   ci-msvc:
