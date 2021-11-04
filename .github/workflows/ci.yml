@@ -10,10 +10,7 @@ on:
 jobs:
   ci-msvc:
     name: CI with MSVC
-    runs-on: $
-    strategy:
-      matrix:
-        os: [windows-latest]
+    runs-on: windows-latest
 
     steps:
     - name: Fetch Sources
