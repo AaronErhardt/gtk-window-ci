@@ -32,6 +32,6 @@ jobs:
         profile: minimal
         toolchain: stable
     - name: Prepare Build
-      run: cd / && meson setup builddir --prefix=C:/gnome -Dbuild-tests=false -Dmedia-gstreamer=disabled
+      run: cd /gtk && meson setup builddir --prefix=C:/gnome -Dbuild-tests=false -Dmedia-gstreamer=disabled
     - name: Run Build
-      run: cd / && meson install -C builddir
+      run: cd /gtk && meson install -C builddir
