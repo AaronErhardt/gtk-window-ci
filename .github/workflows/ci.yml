@@ -28,6 +28,9 @@ jobs:
         architecture: x64
     - name: Install Rust
       uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
     - name: Prepare Build
       run: cd / && meson setup builddir --prefix=C:/gnome -Dbuild-tests=false -Dmedia-gstreamer=disabled
     - name: Run Build
