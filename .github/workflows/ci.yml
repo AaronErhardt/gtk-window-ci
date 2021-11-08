@@ -4,6 +4,7 @@ name: CI
 
 
 on:
+  push:
   schedule:
   - cron: '42 */12 * * *'
 
@@ -13,10 +14,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Fetch Sources
-      uses: actions/checkout@v2
-      with:
-        repository: 'GNOME/gtk'
+    - name: Clone GTK
+      run: cd / && git clone https://gitlab.gnome.org/GNOME/gtk.git --depth 1
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
@@ -27,9 +26,9 @@ jobs:
       uses: bus1/cabuild/action/msdevshell@v1
       with:
         architecture: x64
-#    - name: Install Rust
-#      uses: actions-rs/toolchain@v1
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
     - name: Prepare Build
-      run: meson setup builddir --prefix=C:/gnome -Dbuild-tests=false -Dmedia-gstreamer=disabled
+      run: cd / && meson setup builddir --prefix=C:/gnome -Dbuild-tests=false -Dmedia-gstreamer=disabled
     - name: Run Build
-      run: meson install -C builddir
+      run: cd / && meson install -C builddir
